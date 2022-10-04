@@ -11,7 +11,7 @@ pipeline {
         stage('plan') {
              steps {
                 sh '''
-               /usr/local/bin/terraform plan
+               /usr/local/bin/terraform plan -lock=false
                '''
             }
         }
