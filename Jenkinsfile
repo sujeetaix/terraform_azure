@@ -28,11 +28,11 @@ pipeline {
         stage('approval') {
           options {
             timeout(time: 1, unit: 'HOURS')
-              steps { 
-                  input 'approval for apply'
+          }
+          steps { 
+            input 'approval for apply'
               }
           }
-        }
         stage('Terraform apply') {
             when {
                 equals expected: "apply", actual: env.mode
