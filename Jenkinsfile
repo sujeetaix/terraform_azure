@@ -8,17 +8,28 @@ pipeline {
                 '''
             }
         }
-        stage('plan') {
+        stage('validate') {
              steps {
                 sh '''
-               /usr/local/bin/terraform plan -lock=false
+               /usr/local/bin/terraform validate -lock=false 
                '''
             }
         }
-        stage('stage 3') {
+        stage('Terraform plan') {
               steps {
                  sh '''
-                echo "running stage 3"
+                echo "/usr/local/bin/terraform plan -lock=false"
+                '''
+            }
+        }
+
+        stage('Terraform apply') {
+            when {
+                equals expected: "apply", actual: env.mode
+            }
+            steps {
+                sh '''
+                echo "/usr/local/bin/terraform apply -lock=false -auto-approve"
                 '''
             }
         }
