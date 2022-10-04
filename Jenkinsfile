@@ -1,14 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('stage 1') {
+        stage('init') {
              steps {
-                echo "running stage 1"
+                terraform init
             }
         }
-        stage('stage 2') {
+        stage('plan') {
              steps {
-                echo "running stage 2"
+               terraform plan
             }
         }
         stage('stage 3') {
