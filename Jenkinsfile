@@ -1,16 +1,26 @@
 pipeline {
     agent any
     stages {
-        stage('stage 1') {
+        stage('init') {
              steps {
-                echo "running stage 1"
+                sh '''
+                /usr/local/bin/terraform init -backend-config="key=qa.terraform.tfstate" -reconfigure
+                '''
             }
         }
-        stage('stage 2') {
-                echo "running stage 2"
+        stage('plan') {
+             steps {
+                sh '''
+               /usr/local/bin/terraform plan -var-file="qa.terraform.tfvars" 
+               '''
+            }
         }
         stage('stage 3') {
+              steps {
+                 sh '''
                 echo "running stage 3"
+                '''
+            }
         }
 
     }
