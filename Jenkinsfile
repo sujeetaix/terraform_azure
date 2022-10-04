@@ -4,14 +4,14 @@ pipeline {
         stage('init') {
              steps {
                 sh '''
-                /usr/local/bin/terraform init
+                /usr/local/bin/terraform init -backend-config="key=qa.terraform.tfstate" -reconfigure
                 '''
             }
         }
         stage('plan') {
              steps {
                 sh '''
-               /usr/local/bin/terraform plan
+               /usr/local/bin/terraform plan -var-file="qa.terraform.tfvars" 
                '''
             }
         }
