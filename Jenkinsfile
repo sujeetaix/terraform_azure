@@ -27,7 +27,7 @@ pipeline {
         }
         stage('approval') {
           options {
-            timeout(time: 1, unit: 'Hours')
+            timeout(time: 1, unit: 'HOURS')
               steps { 
                   input 'approval for apply'
               }
