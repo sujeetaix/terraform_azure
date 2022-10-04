@@ -25,7 +25,7 @@ pipeline {
                  '''
             }
         }
-        /*
+        
         stage('approval') {
           options {
             timeout(time: 1, unit: 'HOURS')
@@ -34,17 +34,7 @@ pipeline {
             input 'approval for apply'
               }
           }
-        */
-       stage('Approval') {
-         options {
-            timeout(time: 1, unit: 'HOURS')
-          }
-        steps {
-            script {
-                id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin')]
-            }
-        }
-    }
+        
         stage('Terraform apply') {
             when {
                 equals expected: "apply", actual: env.mode
