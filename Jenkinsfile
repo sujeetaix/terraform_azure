@@ -28,6 +28,9 @@ pipeline {
         stage('approval') {
           options {
             timeout(time: 1, unit: 'Hours')
+              steps { 
+                  input 'approval for apply'
+              }
           }
         }
         stage('Terraform apply') {
