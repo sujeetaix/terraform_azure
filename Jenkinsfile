@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('init') {
              steps {
-                terraform init
+                /usr/local/bin/terraform init
             }
         }
         stage('plan') {
              steps {
-               terraform plan
+               /usr/local/bin/terraform plan
             }
         }
         stage('stage 3') {
