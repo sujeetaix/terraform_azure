@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
+    }
     stages {
         stage('init') {
              steps {
@@ -11,7 +14,7 @@ pipeline {
         stage('validate') {
              steps {
                 sh '''
-               /usr/local/bin/terraform validate -lock=false 
+               /usr/local/bin/terraform validate
                '''
             }
         }
