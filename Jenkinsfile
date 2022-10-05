@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent linuxnode
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }
