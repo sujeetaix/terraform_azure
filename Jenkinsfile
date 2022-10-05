@@ -39,3 +39,19 @@ pipeline {
 
     }
 }
+    agent any
+    
+    stages {
+        stage('Ok') {
+            steps {
+                echo "Ok"
+            }
+        }
+    }
+post {
+    always {
+            mail to: 'mbharathk23@gmail.com',
+            subject: "Pipeline Run: ${currentBuild.fullDisplayName}",
+            body: "Something is wrong with ${env.BUILD_URL}"
+            }
+         }
