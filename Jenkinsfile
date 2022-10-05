@@ -54,10 +54,13 @@ post {
             body: "Something is wrong with ${env.BUILD_URL}"
             }
     
-    always {
+    success {
             mail to: 'mbharathk23@gmail.com',
-            subject: "Pipeline Run: ${currentBuild.fullDisplayName}",
-            body: "Something is wrong with ${env.BUILD_URL}"
+            subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
+            body: "Pipeline is successful ${env.BUILD_URL} ${env.BUILD_ID}"
             }
          }
+    always {
+        cleanWs()
+    }
 }
