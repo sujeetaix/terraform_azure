@@ -59,8 +59,9 @@ post {
             subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
             body: "Pipeline is successful ${env.BUILD_URL} ${env.BUILD_ID}"
             }
-         }
+  
     always {
         cleanWs()
+           }
     }
 }
