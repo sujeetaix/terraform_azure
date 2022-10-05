@@ -45,13 +45,19 @@ pipeline {
                 '''
             }
         }
-
     }
-}
+
 post {
+    failure {
+            mail to: 'mbharathk23@gmail.com',
+            subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
+            body: "Something is wrong with ${env.BUILD_URL}"
+            }
+    
     always {
             mail to: 'mbharathk23@gmail.com',
             subject: "Pipeline Run: ${currentBuild.fullDisplayName}",
             body: "Something is wrong with ${env.BUILD_URL}"
             }
          }
+}
