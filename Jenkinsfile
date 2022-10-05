@@ -21,18 +21,27 @@ pipeline {
         stage('Terraform plan') {
               steps {
                  sh '''
-                echo "/usr/local/bin/terraform plan -lock=false"
-                '''
+                 /usr/local/bin/terraform plan -lock=false
+                 '''
             }
         }
-
+        
+        stage('approval') {
+          options {
+            timeout(time: 1, unit: 'HOURS')
+          }
+          steps { 
+            input 'approval for apply'
+              }
+          }
+        
         stage('Terraform apply') {
             when {
                 equals expected: "apply", actual: env.mode
             }
             steps {
                 sh '''
-                echo "/usr/local/bin/terraform apply -lock=false -auto-approve"
+                /usr/local/bin/terraform apply -lock=false -auto-approve
                 '''
             }
         }
