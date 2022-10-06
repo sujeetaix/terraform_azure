@@ -1,9 +1,10 @@
 pipeline {
     agent {
-        node{ 
-            label 'Built-In Node'
-        }
-    }
+          docker {
+              image 'votingappdemobharath.azurecr.io/image:1.0'
+              }
+           }
+    
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }
@@ -26,6 +27,14 @@ pipeline {
               steps {
                  sh '''
                  /usr/local/bin/terraform plan -lock=false
+                 '''
+            }
+        }
+        
+        stage('sleep 5 min') {
+              steps {
+                 sh '''
+                 sleep 300
                  '''
             }
         }
