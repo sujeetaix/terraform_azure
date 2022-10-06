@@ -22,8 +22,8 @@ pipeline {
              steps {
                 withCredentials([usernamePassword(credentialsId: 'AZ_login_creds', passwordVariable: 'password', usernameVariable: 'username')]) {
                 sh 'az login --identity'
-                   'az account set -s "${subscription_id}"'
-                   'terraform init'
+                sh  'az account set -s "${subscription_id}"'
+                sh   'terraform init'
                 }
             }
         }
