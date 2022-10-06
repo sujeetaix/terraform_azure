@@ -43,8 +43,6 @@ pipeline {
         }
      
         stage('approval') {
-          if (env.mode == "apply")
-            
           options {
             timeout(time: 1, unit: 'HOURS')
           }
