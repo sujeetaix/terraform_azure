@@ -8,6 +8,11 @@ pipeline {
               registryCredentialsId 'ACR' 
               }
            }
+    
+    environment {
+        MY_CRED = credentials('	azure-serviceprinciple-credentials')
+      }
+    
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }
@@ -16,6 +21,7 @@ pipeline {
         stage('sleep 5 min') {
               steps {
                  sh '''
+                 
                  sleep 300
                  '''
             }
@@ -23,6 +29,7 @@ pipeline {
         stage('init') {
              steps {
                 sh '''
+                az login --service-principal -u $MY_CRED_CLIENT_ID -p $MY_CRED_CLIENT_SECRET -t $MY_CRED_TENANT_ID
                 /usr/local/bin/terraform init 
                 '''
             }
@@ -30,13 +37,15 @@ pipeline {
         stage('validate') {
              steps {
                 sh '''
-               /usr/local/bin/terraform validate
-               '''
+                az login --service-principal -u $MY_CRED_CLIENT_ID -p $MY_CRED_CLIENT_SECRET -t $MY_CRED_TENANT_ID
+                /usr/local/bin/terraform validate
+                '''
             }
         }
         stage('Terraform plan') {
               steps {
                  sh '''
+                 az login --service-principal -u $MY_CRED_CLIENT_ID -p $MY_CRED_CLIENT_SECRET -t $MY_CRED_TENANT_ID
                  /usr/local/bin/terraform plan -lock=false
                  '''
             }
@@ -57,6 +66,7 @@ pipeline {
             }
             steps {
                 sh '''
+                az login --service-principal -u $MY_CRED_CLIENT_ID -p $MY_CRED_CLIENT_SECRET -t $MY_CRED_TENANT_ID
                 /usr/local/bin/terraform apply -lock=false -auto-approve
                 '''
             }
