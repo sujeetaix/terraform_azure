@@ -1,5 +1,5 @@
 pipeline {
-    agent {
+    agent any {
           docker {
               image 'votingappdemobharath.azurecr.io/image:1.0'
               }
