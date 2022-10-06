@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node{ 
-            label 'linuxnode'
+            label 'any'
         }
     }
     parameters {
