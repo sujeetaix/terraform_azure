@@ -4,7 +4,7 @@ pipeline {
               image 'image:1.0'
               args "--user root --privileged"
               alwaysPull true
-              registryUrl 'votingappdemobharath.azurecr.io'
+              registryUrl 'https://votingappdemobharath.azurecr.io'
               registryCredentialsId 'ACR' 
               }
            }
