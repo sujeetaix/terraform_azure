@@ -5,6 +5,10 @@ pipeline {
               }
            }
     
+    environment {
+    AZURE_CONFIG_DIR = "${env.WORKSPACE}/.azure"
+    }
+    
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }
