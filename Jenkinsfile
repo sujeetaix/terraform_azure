@@ -21,7 +21,7 @@ pipeline {
         stage('init') {
              steps {
                 sh '''
-                az login -u terraformuser@saimsv528outlook.onmicrosoft.com -p "Payo1429"
+                az login -u terraformuser@saimsv528outlook.onmicrosoft.com -p "jenkins@460460"
                 /usr/local/bin/terraform init 
                 '''
             }
