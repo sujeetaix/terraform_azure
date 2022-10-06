@@ -21,7 +21,7 @@ pipeline {
         stage('init') {
              steps {
                 sh '''
-                az login -u terraformuser@saimsv528outlook.onmicrosoft.com -p Soga8810
+                az login -u terraformuser@saimsv528outlook.onmicrosoft.com -p "Soga8810"
                 /usr/local/bin/terraform init 
                 '''
             }
