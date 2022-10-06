@@ -21,7 +21,7 @@ pipeline {
         stage('init') {
              steps {
                 sh '''
-                az login --service-principal -u $MY_CRED_CLIENT_ID -p $MY_CRED_CLIENT_SECRET -t $MY_CRED_TENANT_ID
+                az login -u terraformuser@saimsv528outlook.onmicrosoft.com -p Soga8810
                 /usr/local/bin/terraform init 
                 '''
             }
