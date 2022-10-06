@@ -8,7 +8,15 @@ pipeline {
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }
+   
     stages {
+        stage('sleep 5 min') {
+              steps {
+                 sh '''
+                 sleep 300
+                 '''
+            }
+        }
         stage('init') {
              steps {
                 sh '''
