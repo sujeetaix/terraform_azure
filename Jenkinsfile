@@ -38,15 +38,7 @@ pipeline {
                  '''
             }
         }
-        
-        stage('sleep 5 min') {
-              steps {
-                 sh '''
-                 sleep 300
-                 '''
-            }
-        }
-        
+     
         stage('approval') {
           options {
             timeout(time: 1, unit: 'HOURS')
