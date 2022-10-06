@@ -1,11 +1,11 @@
 pipeline {
     agent {
           docker {
-              image 'image:1.0'
+              image "votingappdemobharath.azurecr.io/image:1.0"
               args "--user root --privileged"
               alwaysPull true
-              registryUrl 'https://votingappdemobharath.azurecr.io'
-              registryCredentialsId 'ACR' 
+              registryUrl "https://votingappdemobharath.azurecr.io"
+              registryCredentialsId "ACR"
               }
            }
     
