@@ -6,12 +6,11 @@ pipeline {
               alwaysPull true
               registryUrl "https://votingappdemobharath.azurecr.io"
               registryCredentialsId "ACR"
-              subscription_id "a0d8b970-be97-4907-b131-502984af3755"
               }
-           }
-    
+           }    
     environment {
         MY_CRED = credentials('	azure-serviceprinciple-credentials')
+        subscription_id = "a0d8b970-be97-4907-b131-502984af3755"
       }
     
     parameters {
@@ -23,8 +22,8 @@ pipeline {
              steps {
                 withCredentials([usernamePassword(credentialsId: 'AZ_login_creds', passwordVariable: 'password', usernameVariable: 'username')]) {
                 sh 'az login --identity'
-                   'az account set -s "$subscription_id"'
-                   '/usr/local/bin/terraform init'
+                   'az account set -s "${subscription_id}"'
+                   'terraform init'
                 }
             }
         }
@@ -84,3 +83,4 @@ post {
            }
     }
 }
+
