@@ -2,13 +2,9 @@ pipeline {
     agent {
           docker {
               image 'votingappdemobharath.azurecr.io/image:1.0'
+              args "--user root --privileged"
               }
            }
-    
-    environment {
-    AZURE_CONFIG_DIR = "${env.WORKSPACE}/.azure"
-    }
-    
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }
