@@ -1,4 +1,7 @@
 pipeline {
+
+    agent any;
+    
         
     environment {
        subscription_id = "eab6752d-bcf9-498e-95e8-5321c360dce3"
