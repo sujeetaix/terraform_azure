@@ -1,16 +1,7 @@
 pipeline {
-    agent {
-          docker {
-              image "votingappdemobharath.azurecr.io/image:1.0"
-              args "--user root --privileged"
-              alwaysPull true
-              registryUrl "https://votingappdemobharath.azurecr.io"
-              registryCredentialsId "ACR"
-              }
-           }    
+        
     environment {
-        MY_CRED = credentials('	azure-serviceprinciple-credentials')
-        subscription_id = "a0d8b970-be97-4907-b131-502984af3755"
+       subscription_id = "eab6752d-bcf9-498e-95e8-5321c360dce3"
       }
     
     parameters {
