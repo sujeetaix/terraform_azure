@@ -1,8 +1,5 @@
 pipeline {
     agent any;     
-    environment {
-       MY_CRED = credentials('azure_login')
-    }   
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }   
@@ -12,7 +9,6 @@ pipeline {
           sh 'az login --service-principal -u $MY_CRED_CLIENT_ID -p $MY_CRED_CLIENT_SECRET -t $MY_CRED_TENANT_ID'
             }
         }
-        
         stage('Terraform Init'){
             steps {
                     ansiColor('xterm') {
@@ -31,15 +27,7 @@ pipeline {
                     }
              }
         }
-        
-//     stage('init') {
-             steps {
-                sh '''
-                /usr/bin/terraform init
-                '''
-            }
-        }
- //   
+    
         stage('validate') {
              steps {
                 sh '''
