@@ -1,5 +1,8 @@
 pipeline {
-    agent any;     
+    agent any; 
+    environment {
+       MY_CRED = credentials('azure_login')
+    } 
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }   
