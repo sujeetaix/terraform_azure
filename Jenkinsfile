@@ -4,14 +4,21 @@ pipeline {
     
         
     environment {
-       subscription_id = "eab6752d-bcf9-498e-95e8-5321c360dce3"
-      }
+       MY_CRED = credentials('Azure_app_registration')
+    }
     
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
     }
    
     stages {
+        stage('azurelogin') {
+      steps {
+          sh 'az login --service-principal -u $MY_CRED_CLIENT_ID -p $MY_CRED_CLIENT_SECRET -t $MY_CRED_TENANT_ID'
+      }
+    }
+
+
         stage('init') {
              steps {
                 withCredentials([usernamePassword(credentialsId: 'AZ_login_creds', passwordVariable: 'password', usernameVariable: 'username')]) {
