@@ -8,6 +8,6 @@ output "vnet_location" {
     value = azurerm_virtual_network.main.location
 }
 
-output "location" {
+ouput "location" {
     value = azurerm_virtual_network.main.location
 }
