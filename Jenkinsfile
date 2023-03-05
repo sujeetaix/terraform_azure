@@ -22,7 +22,7 @@ pipeline {
         stage('init') {
              steps {
                 sh '''
-                /usr/local/bin/terraform init
+                /usr/bin/terraform init
                 '''
             }
         }
@@ -30,14 +30,14 @@ pipeline {
         stage('validate') {
              steps {
                 sh '''
-                /usr/local/bin/terraform validate
+                /usr/bin/terraform validate
                 '''
             }
         }
         stage('Terraform plan') {
               steps {
                  sh '''
-                 /usr/local/bin/terraform plan -lock=false
+                 /usr/bin/terraform plan -lock=false
                  '''
             }
         }
@@ -57,7 +57,7 @@ pipeline {
             }
             steps {
                 sh '''
-                /usr/local/bin/terraform apply -lock=false -auto-approve
+                /usr/bin/terraform apply -lock=false -auto-approve
                 '''
             }
         }
