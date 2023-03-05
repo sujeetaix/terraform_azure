@@ -24,17 +24,17 @@ resource "azurerm_subnet" "private" {
   address_prefixes     = var.private-subnet
   }
 
-resource "azurerm_network_security_group" "public" {
-  name                = "acceptanceTestSecurityGroup1"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
-}
+#resource "azurerm_network_security_group" "public" {
+#  name                = "acceptanceTestSecurityGroup1"
+#  location            = azurerm_resource_group.main.location
+#  resource_group_name = azurerm_resource_group.main.name
+#}
 
-resource "azurerm_network_security_group" "private" {
-  name                = "acceptanceTestSecurityGroup1"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
-}
+#resource "azurerm_network_security_group" "private" {
+#  name                = "acceptanceTestSecurityGroup1"
+#  location            = azurerm_resource_group.main.location
+#  resource_group_name = azurerm_resource_group.main.name
+#}
 
 
 
