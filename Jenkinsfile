@@ -29,19 +29,37 @@ pipeline {
                  }
         }
     
-        stage('validate') {
-             steps {
-                sh '''
-                /usr/bin/terraform validate
-                '''
-            }
+        stage('Terraform Validate'){
+            steps {
+                    withCredentials([azureServicePrincipal(
+                    credentialsId: 'azure_login',
+                    subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID',
+                    clientIdVariable: 'ARM_CLIENT_ID',
+                    clientSecretVariable: 'ARM_CLIENT_SECRET',
+                    tenantIdVariable: 'ARM_TENANT_ID'
+                )]) {
+                        sh """                    
+                        echo "validating Terraform Code"
+                        /usr/bin/terraform Validate
+                        """
+                           }
+                 }
         }
-        stage('Terraform plan') {
-             steps {
-                 sh '''
-                 /usr/bin/terraform plan -lock=false
-                 '''
-            }
+        stage('Terraform Plan'){
+            steps {
+                    withCredentials([azureServicePrincipal(
+                    credentialsId: 'azure_login',
+                    subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID',
+                    clientIdVariable: 'ARM_CLIENT_ID',
+                    clientSecretVariable: 'ARM_CLIENT_SECRET',
+                    tenantIdVariable: 'ARM_TENANT_ID'
+                )]) {
+                        sh """                    
+                        echo "Plan Terraform"
+                        /usr/bin/terraform Plan
+                        """
+                           }
+                 }
         }
         stage('approval') {
           options {
@@ -56,10 +74,19 @@ pipeline {
                 equals expected: "apply", actual: env.mode
             }
             steps {
-                sh '''
-                /usr/bin/terraform apply -lock=false -auto-approve
-                '''
-            }
+                    withCredentials([azureServicePrincipal(
+                    credentialsId: 'azure_login',
+                    subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID',
+                    clientIdVariable: 'ARM_CLIENT_ID',
+                    clientSecretVariable: 'ARM_CLIENT_SECRET',
+                    tenantIdVariable: 'ARM_TENANT_ID'
+                )]) {
+                    sh """                    
+                        echo "Apply Terraform"
+                        /usr/bin/terraform apply -lock=false -auto-approve
+                        """
+                           }
+                 }
         }
     }
 post {
