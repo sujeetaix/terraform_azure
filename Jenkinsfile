@@ -91,15 +91,11 @@ pipeline {
     }
 post {
     failure {
-            mail to: 'mbharathk23@gmail.com',
-            subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
-            body: "Something is wrong with ${env.BUILD_URL}"
+                echo "Jenkins Build Failed"
             }
     
     success {
-            mail to: 'mbharathk23@gmail.com',
-            subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
-            body: "Pipeline is successful ${env.BUILD_URL} ${env.BUILD_ID}"
+                echo "Jenkins Build Success"
             }
     always {
         cleanWs()
