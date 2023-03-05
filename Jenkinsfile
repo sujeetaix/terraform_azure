@@ -1,24 +1,17 @@
 pipeline {
-
-    agent any;
-    
-        
+    agent any;     
     environment {
-       MY_CRED = credentials('Azure_app_registration')
-    }
-    
+       MY_CRED = credentials('azure_login')
+    }   
     parameters {
         choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
-    }
-   
+    }   
     stages {
         stage('azurelogin') {
-      steps {
+        steps {
           sh 'az login --service-principal -u $MY_CRED_CLIENT_ID -p $MY_CRED_CLIENT_SECRET -t $MY_CRED_TENANT_ID'
-      }
-    }
-
-
+            }
+        }
         stage('init') {
              steps {
                 sh '''
@@ -34,13 +27,12 @@ pipeline {
             }
         }
         stage('Terraform plan') {
-              steps {
+             steps {
                  sh '''
                  /usr/bin/terraform plan -lock=false
                  '''
             }
         }
-     
         stage('approval') {
           options {
             timeout(time: 1, unit: 'HOURS')
@@ -49,7 +41,6 @@ pipeline {
             input 'approval for apply'
               }
           }
-        
         stage('Terraform apply') {
             when {
                 equals expected: "apply", actual: env.mode
@@ -61,7 +52,6 @@ pipeline {
             }
         }
     }
-
 post {
     failure {
             mail to: 'mbharathk23@gmail.com',
@@ -74,10 +64,8 @@ post {
             subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
             body: "Pipeline is successful ${env.BUILD_URL} ${env.BUILD_ID}"
             }
-  
     always {
         cleanWs()
            }
     }
 }
-
