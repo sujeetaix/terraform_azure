@@ -40,7 +40,7 @@ pipeline {
                 )]) {
                         sh """                    
                         echo "validating Terraform Code"
-                        /usr/bin/terraform Validate
+                        /usr/bin/terraform validate
                         """
                            }
                  }
@@ -56,7 +56,7 @@ pipeline {
                 )]) {
                         sh """                    
                         echo "Plan Terraform"
-                        /usr/bin/terraform Plan
+                        /usr/bin/terraform plan
                         """
                            }
                  }
