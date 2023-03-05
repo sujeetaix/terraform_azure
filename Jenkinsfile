@@ -4,7 +4,7 @@ pipeline {
        MY_CRED = credentials('azure_login')
     } 
     parameters {
-        choice(name: 'mode', choices: ['plan', 'apply'], description: 'Select Plan or Apply')
+        choice(name: 'mode', choices: ['plan', 'apply', 'destroy'], description: 'Select Plan or Apply or Destroy')
     }   
     stages {
         stage('azurelogin') {
@@ -66,7 +66,7 @@ pipeline {
             timeout(time: 1, unit: 'HOURS')
           }
           steps { 
-            input 'approval for apply'
+            input 'approval for apply or destroy'
               }
           }
         stage('Terraform apply') {
@@ -88,6 +88,26 @@ pipeline {
                            }
                  }
         }
+        stage('Terraform Destroy') {
+            when {
+                equals expected: "destroy", actual: env.mode
+            }
+            steps {
+                    withCredentials([azureServicePrincipal(
+                    credentialsId: 'azure_login',
+                    subscriptionIdVariable: 'ARM_SUBSCRIPTION_ID',
+                    clientIdVariable: 'ARM_CLIENT_ID',
+                    clientSecretVariable: 'ARM_CLIENT_SECRET',
+                    tenantIdVariable: 'ARM_TENANT_ID'
+                )]) {
+                    sh """                    
+                        echo "Destroy Terraform"
+                        /usr/bin/terraform destroy -lock=false -auto-approve
+                        """
+                      }
+                 }
+        }
+        
     }
 post {
     failure {
