@@ -21,12 +21,11 @@ pipeline {
 
         stage('init') {
              steps {
-                withCredentials([usernamePassword(credentialsId: 'AZ_login_creds', passwordVariable: 'password', usernameVariable: 'username')]) {
-                sh  'az login -u $username -p $password '
-                sh  'az account set -s "${subscription_id}"'
-                sh  'terraform init'
-                }
+                sh '''
+                /usr/local/bin/terraform init
+                '''
             }
+        }
         }
         stage('validate') {
              steps {
