@@ -26,7 +26,6 @@ pipeline {
                 '''
             }
         }
-        }
         stage('validate') {
              steps {
                 sh '''
